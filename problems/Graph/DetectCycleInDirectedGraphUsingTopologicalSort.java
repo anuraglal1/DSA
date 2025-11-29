@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class DetectCycleInDirectedGraphUsingTopologicalSort {
+public class DetectCycleInDirectedGraphUsingTopologicalSort {   // Kahn's Algorithm
     public static void main(String[] args) {
         int V = 4;
         List<List<Integer>> adj = new ArrayList<>();
