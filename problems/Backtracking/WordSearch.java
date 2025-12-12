@@ -52,7 +52,7 @@ public class WordSearch {
     public static boolean isValid(int i, int j, int k, int m, int n, int l, char[][] board,
                            String word) {
         return i >= 0 && j >= 0 && i < m && j < n &&
-                board[i][j] == word.charAt(k);
+                board[i][j] == word.charAt(k) && board[i][j] != '#';
     }
 
     public static void main(String[] args) {
