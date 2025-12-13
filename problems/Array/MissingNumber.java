@@ -2,6 +2,7 @@ package Array;
 
 import java.util.Arrays;
 
+// https://leetcode.com/problems/missing-number/description/
 public class MissingNumber {
     public static int missingNumber(int[] nums) {
         int i;
