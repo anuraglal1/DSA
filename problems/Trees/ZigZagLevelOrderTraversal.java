@@ -5,43 +5,45 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-// https://leetcode.com/problems/diameter-of-binary-tree/
-public class DiameterOfBinaryTree {
+public class ZigZagLevelOrderTraversal {
     public static class TreeNode {
         Integer val;
         TreeNode left;
         TreeNode right;
-        TreeNode() {}
-        TreeNode(Integer val) { this.val = val; }
-        TreeNode(Integer val, TreeNode left, TreeNode right) {
+
+        TreeNode(Integer val) {
             this.val = val;
-            this.left = left;
-            this.right = right;
         }
     }
-    public static int diameterOfBinaryTree(TreeNode root) {
-        if (root == null) {
-            return 0;
+
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        boolean ltr = true;  // Left to right on first level
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int n = queue.size();
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < n; i++) {
+                TreeNode node = queue.poll();
+                if (ltr) {
+                    level.add(node.val);
+                } else {
+                    level.add(0, node.val);
+                }
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
+            }
+
+            res.add(level);
+            ltr = !ltr;
         }
 
-        int leftHeight = height(root.left);
-        int rightHeight = height(root.right);
-
-        int lDiameter = diameterOfBinaryTree(root.left);
-        int rDiameter = diameterOfBinaryTree(root.right);
-
-        return Math.max(Math.max(lDiameter, rDiameter), leftHeight + rightHeight);
-    }
-
-    public static int height(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-
-        int left = 1 + height(root.left);
-        int right = 1 + height(root.right);
-
-        return Math.max(left, right);
+        return res;
     }
 
     static TreeNode buildTree(Integer[] nums) {
@@ -98,7 +100,6 @@ public class DiameterOfBinaryTree {
             }
         }
 
-        // Remove trailing nulls (LeetCode format)
         int i = result.size() - 1;
         while (i >= 0 && result.get(i).equals("null")) {
             i--;
@@ -111,8 +112,7 @@ public class DiameterOfBinaryTree {
 
 
     public static void main(String[] args) {
-        Integer[] nums = {1,2,3,4,5};
-        
+        Integer[] nums = {3, 9, 20, null, null, 15, 7};
         TreeNode root = buildTree(nums);
 
         System.out.println("Printing tree: ");
@@ -121,8 +121,8 @@ public class DiameterOfBinaryTree {
 
         System.out.println();
 
-        int diameter = diameterOfBinaryTree(root);
-        System.out.println("The diameter of tree is : " + diameter  + " 😊");
+        List<List<Integer>> zigzagLevelOrder = zigzagLevelOrder(root);
+        System.out.println("The zigZag level order traversal of tree is : " + zigzagLevelOrder  + " 😊");
 
     }
 }
