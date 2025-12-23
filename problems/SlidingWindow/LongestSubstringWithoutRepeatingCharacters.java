@@ -14,13 +14,12 @@ public class LongestSubstringWithoutRepeatingCharacters {
         int ans = Integer.MIN_VALUE;
 
         while (j < n) {
-            char curr = s.charAt(j);
-            while (visited[curr-'a']) {
-                visited[curr-'a'] = false;
+            while (visited[s.charAt(j)-'a']) {   // geeksforgeeks
+                visited[s.charAt(i) - 'a'] = false;
                 i += 1;
             }
 
-            visited[curr-'a'] = true;
+            visited[s.charAt(j)-'a'] = true;
 
             if (ans < j-i+1) {
                 ans = j-i+1;
