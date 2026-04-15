@@ -1,4 +1,4 @@
-package Graph;
+package Graph.DFS;
 
 import java.util.*;
 
